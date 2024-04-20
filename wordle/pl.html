@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!--Head-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Veracept portfolio website.">
+    <meta name="author" content="Veracept">
+    <meta name="keywords"
+        content="website, Portfolio, github, html, css, webdev, googlefont, ankit, Veracept, freehost, html project, Rodina RP, Gerstlix">
+    <meta name="google-site-verification" content="-_vGTZ4HnVXhPBb64aXsyhaFefMCewkbBGKhiUa_xZg">
+    <meta name="google-adsense-account" content="ca-pub-4361307844960518">
+    <title>VS | Veracept</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="../assets/CSS/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="../assets/CSS/responsive.css">
+    <link rel="shortcut icon" href="../assets/IMG/avatar.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../assets/IMG/avatar.png">
+</head>
+<!--Head End-->
+  <style>
+
+:root {
+  --color-black: #121213;
+  --color-white: #fff;
+  --color-green: #538d4e;
+  --color-yellow: #B59F3B;
+  --color-gray-dark: #3A3A3C;
+  --color-gray-light: #818384;
+}
+
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+body {
+  background: var(--color-black);
+  color: var(--color-white);
+
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  min-height: 100vh;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+header { border-bottom: 1px solid var(--color-gray-dark); }
+
+h1 {
+  margin: 10px 0;
+  padding: 0;
+  text-align: center;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.toaster {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  width: fit-content;
+}
+
+.toaster ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toast {
+  background: var(--color-white);
+  border-radius: 4px;
+  color: var(--color-black);
+  padding: 1rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.fade { opacity: 0; }
+
+#board, #keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Between each row */
+  text-transform: uppercase;
+}
+
+#board ul,
+#keyboard ul {
+  display: flex;
+  list-style: none;
+  gap: 6px; /* Between each cell */
+  padding: 0;
+  margin: 0;
+}
+
+[data-status],
+[data-key] {
+  border: 2px solid var(--color-gray-dark);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 4rem;
+  width: 4rem;
+
+  user-select: none;
+}
+
+#keyboard {
+  gap: 8px; /* Between each row */
+  padding-bottom: 10px;
+}
+
+#keyboard ul { justify-content: center; }
+
+[data-key] {
+  background: var(--color-gray-light);
+  border: none;
+  border-radius: 4px;
+
+  font-size: 1rem;
+
+  height: 3.8rem;
+  width: 2.8rem;
+
+  cursor: pointer;
+
+  transition: all .3s ease-in-out;
+}
+
+[data-key='Enter'] { width: 6rem; }
+
+[data-key='Backspace'] {
+  background-image: url(./backspace.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  width: 4rem;
+}
+
+[data-status='filled']      { border: 1px solid var(--color-gray-light); }
+[data-status='valid']       { background: var(--color-green); }
+[data-status='invalid']     { background: var(--color-yellow); }
+[data-status='none']        { background: var(--color-gray-dark); }
+
+[data-animation='pop']      { animation: PopIn 100ms; }
+
+@keyframes PopIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+[data-animation='flip']     { animation: Flip .50s ease-in; }
+
+@keyframes Flip {
+  from {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(-90deg);
+  }
+  to {
+    transform: rotateX(0);
+  }
+}
+
+[data-animation='invalid']  { animation: Shake 600ms; }
+
+@keyframes Shake {
+  10%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 80% {
+    transform: translateX(2px);
+  }
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+  </style>
+<body>
+  <header>
+    <h2 style="font-size: 50px; text-align: center;">Wordle</h2>
+  </header>
+  <main>
+    <section id="board">
+    </section>
+  </main>
+  <div class="toaster">
+    <ul></ul>
+  </div>
+    <section id="keyboard">
+    </section>
+
+
+    <footer class="footer">
+      <div class="footer_upper">
+          <div class="footer_upper_div">
+              <h3>Games Projects</h3>
+              <a href="../games/tower.html">Build a Tower</a>
+              <a href="../games/cubes.html">Cut the Сube</a>
+              <a href="../games/bridge.html">Build a bridge</a>
+              <a href="../games/bridge.html">Generate Image</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Wordle</h3>
+              <a href="en.html">English</a>
+              <a href="ru.html">Russian</a>
+              <a href="ua.html">Ukranian</a>
+              <a href="pl.html">Polish</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Other Links</h3>
+              <a href="https://discord.com/invite/DeeuC7QFBA">Discord-Server</a>
+              <a href="">Code of this page on GitHub</a>
+              <a href="https://imgur.com/a/Oyq8elO">Disign portfolio on imgur</a>
+              <a href="https://veracept.bio.link/">My Bio-Link</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Get In Touch</h3>
+              <a class="flex align-centre gap5" href="mailto:jonikrmz@gmail.com">
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>jonikrmz@gmail.com</a>
+  
+              <div class="footer_upper_div_4_social">
+                  <a href="https://www.instagram.com/veracept/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                  <a href="https://github.com/Veracept"><i class="fa fa-github" aria-hidden="true"></i></a>
+                  <a href="https://t.me/veracept"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                  <a href="https://www.facebook.com/veracept"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                  <a href="https://vk.com/veracept"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                  <a href="https://www.youtube.com/channel/UCWKA2dYM_YGbRXqLjA7y_Xw"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+              </div>
+          </div>
+      </div>
+      <hr>
+      <div class="footer_lower">
+          <div class="footer_lower_text">
+              <p>&copy;<a href="#" style="text-align: center;">Veracept</a> | All Rights Reserved.</p>
+          </div>
+      </div>
+  </footer>
+ <!--Footer Section End-->
+    <!--Java Scripts-->
+    <!--Icons Scripts-->
+    <script src="https://kit.fontawesome.com/cdca6417c3.js" crossorigin="anonymous"></script>
+    <!--Particle Scripts-->
+    <script src="assets/JS/particles.js"></script>
+    <script src="assets/JS/app.js"></script>
+    <!--SMTP Scripts-->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!--Popup Message Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--Scroll Reveal Scripts-->
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <!--Typing Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!--Tilt Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <!--Main Java Scripts-->
+    <script src="assets/JS/script.js"></script>
+    <!--Java Scripts End-->
+  <script>
+'use strict';
+
+const BACKSPACE_KEY = 'Backspace';
+const ENTER_KEY = 'Enter';
+const WORD_LIST = [
+  'ABAJA', 'ABAKA', 'ABCUG', 'ABDUL', 'ABORT', 'ABRYS', 'ABSTA', 'ACANI', 'ACANI', 'ACHAĆ', 'ACPAN', 'ACTIO', 'ADAKS', 'ADDIO', 'ADEPT', 'ADIEU', 'ADIOS', 'ADMIN', 'ADRES', 'ADRIA', 'AECKI', 'AERAL', 'AEROB', 'AFARA', 'AFEKT', 'AFEKT', 'AFERA', 'AFGAN', 'AFIKS', 'AFISZ', 'AFRYT', 'AGADA', 'AGAMA', 'AGAPA', 'AGAPE', 'AGAWA', 'AGEMA', 'AGENS', 'AGENT', 'AGENT', 'AGGIO', 'AGILE', 'AGLET', 'AGNAT', 'AGNUS', 'AGOGO', 'AGONA', 'AGORA', 'AGORA', 'AGUTI', 'AIOLI', 'AISIS', 'AJAKS', 'AJENT', 'AJMAK', 'AJRAN', 'AJWAR', 'AKANT', 'AKARA', 'AKCES', 'AKCIK', 'AKCJA', 'AKCJA', 'AKITA', 'AKOND', 'AKORD', 'AKRON', 'AKRYL', 'AKSEL', 'AKSIS', 'AKSON', 'AKTOR', 'AKTYN', 'AKTYW', 'AKWEN', 'ALAKS', 'ALARM', 'ALASZ', 'ALBIT', 'ALBOŻ', 'ALBUM', 'ALDIS', 'ALDOL', 'ALEBY', 'ALEJA', 'ALERT', 'ALFER', 'ALFKA', 'ALIAS', 'ALIAS', 'ALIAŻ', 'ALIBI', 'ALIJA', 'ALIUM', 'ALKAD', 'ALKAN', 'ALKEN', 'ALKIL', 'ALKIN', 'ALLEL', 'ALLEN', 'ALLIL', 'ALMIK', 'ALOES', 'ALOHA', 'ALOHA', 'ALONA', 'ALONŻ', 'ALOZA', 'ALPRA', 'ALUMN', 'ALUND', 'ALWAR', 'ALWAR', 'AŁUNY', 'AMANT', 'AMBIT', 'AMBRA', 'AMEBA', 'AMFID', 'AMICA', 'AMIDA', 'AMIDY', 'AMIGA', 'AMINA', 'AMINY', 'AMISZ', 'AMORY', 'AMPER', 'AMPLA', 'ANCUG', 'ANEKS', 'ANGAŻ', 'ANGOL', 'ANGST', 'ANIBY', 'ANIMA', 'ANIME', 'ANIOŁ', 'ANIOŁ', 'ANION', 'ANKAP', 'ANKAP', 'ANKRA', 'ANNAŁ', 'ANODA', 'ANONS', 'ANTAŁ', 'ANTAR', 'ANTEK', 'ANTYK', 'ANTYK', 'AOIDA', 'AOJDA', 'AORTA', 'APAGE', 'APART', 'APASZ', 'APATE', 'APEKS', 'APIAĆ', 'APIOL', 'APIUM', 'APLET', 'APLIT', 'APORT', 'APORT', 'APRET', 'APRYL', 'APSEL', 'APSIK', 'ARABY', 'ARAME', 'ARANŻ', 'ARARA', 'ARBEK', 'ARBUZ', 'ARCHE', 'ARCHI', 'ARDEN', 'AREAŁ', 'AREKA', 'ARENA', 'ARETE', 'ARGON', 'ARGOT', 'ARGUS', 'ARGUS', 'ARHAT', 'ARIEL', 'ARIEL', 'ARION', 'ARKAN', 'ARKUS', 'ARMIA', 'AROWY', 'ARRAS', 'ARSAN', 'ARSEN', 'ARTEL', 'ARYLE', 'ASAMI', 'ASANA', 'ASANI', 'ASANI', 'ASAUŁ', 'ASCON', 'ASDIC', 'ASERT', 'ASKAR', 'ASOWY', 'ASPAN', 'ASPIK', 'ASSAI', 'ASSAM', 'ASTAT', 'ASTER', 'ASTMA', 'ASTRA', 'ASTRA', 'ASURA', 'ASZET', 'ASZYK', 'AŚĆKA', 'AŚRAM', 'ATARI', 'ATEMI', 'ATEST', 'ATLAS', 'ATLAS', 'ATLAS', 'ATŁAS', 'ATMAN', 'ATOLI', 'ATTAR', 'AUDIK', 'AUDIO', 'AUDYT', 'AUGIT', 'AUGUR', 'AULOS', 'AURAR', 'AURUM', 'AUTKO', 'AUTOR', 'AUTYK', 'AWACS', 'AWANS', 'AWENA', 'AWERS', 'AWIZO', 'AWOSZ', 'AZALI', 'AZDYK', 'AZOIK', 'AZOWY', 'AZYMA', 'AZYNA', 'AŻEBY', 'AŻURY', 'BABKA', 'BABKI', 'BABOL', 'BABON', 'BABUS', 'BACIK', 'BACIK', 'BADAĆ', 'BADAN', 'BADAN', 'BADYL', 'BAGAŻ', 'BAGNO', 'BAIZA', 'BAJAĆ', 'BAJAN', 'BAJCA', 'BAJDA', 'BAJER', 'BAJKA', 'BAJOR', 'BAKAN', 'BAKCH', 'BAKEN', 'BAKUN', 'BALAS', 'BALET', 'BALIA', 'BALIK', 'BALIK', 'BALIW', 'BALON', 'BALOT', 'BALSA', 'BAŁAK', 'BAŁYK', 'BAMBO', 'BANAŁ', 'BANAN', 'BANAN', 'BANAT', 'BANDA', 'BANDO', 'BANDY', 'BANER', 'BANIA', 'BANJO', 'BANKA', 'BANTU', 'BAŃKA', 'BARAK', 'BARAK', 'BARAN', 'BARAT', 'BARAŻ', 'BARDO', 'BAREK', 'BAREŻ', 'BARIA', 'BARKA', 'BARKI', 'BAROK', 'BARON', 'BARTA', 'BARWA', 'BARWY', 'BARYT', 'BASEK', 'BASEN', 'BASET', 'BASMA', 'BASTA', 'BASZA', 'BAŚKA', 'BATAT', 'BATAT', 'BATIK', 'BATOG', 'BATON', 'BATUT', 'BAUER', 'BAWAR', 'BAWET', 'BAWIĆ', 'BAWÓŁ', 'BAWÓŁ', 'BAZAR', 'BAZIA', 'BAZYT', 'BAŹKA', 'BĄBEL', 'BĄBEL', 'BĄKAĆ', 'BEBOP', 'BECIK', 'BEDEL', 'BEEMA', 'BEFKA', 'BEGAM', 'BEJCA', 'BEKAĆ', 'BEKAS', 'BEKON', 'BEKON', 'BEKSA', 'BEKSA', 'BELGA', 'BELKA', 'BEŁTY', 'BEMAR', 'BEMIT', 'BEMOL', 'BENCZ', 'BERDA', 'BEREK', 'BERET', 'BERŁO', 'BERSO', 'BERTA', 'BERYL', 'BERYL', 'BESKI', 'BESSA', 'BETEL', 'BETKA', 'BETON', 'BETON', 'BETYL', 'BEZAN', 'BEZEŃ', 'BEZIK', 'BĘBEN', 'BĘCKI', 'BIADA', 'BIAKS', 'BIAŁY', 'BIAŁY', 'BIAŁY', 'BIBKA', 'BIBOP', 'BICEK', 'BICIE', 'BIDAK', 'BIDET', 'BIDŁO', 'BIDNY', 'BIDON', 'BIDUL', 'BIEDA', 'BIEGI', 'BIFFA', 'BIGOS', 'BIGOT', 'BIJAĆ', 'BIJAK', 'BIKER', 'BILET', 'BILLY', 'BILON', 'BIMBA', 'BINDA', 'BINGO', 'BINGO', 'BIOLA', 'BIONT', 'BIOTA', 'BIOZA', 'BIPER', 'BIRET', 'BISTR', 'BITKA', 'BITNY', 'BITUM', 'BITWA', 'BIURO', 'BIUST', 'BIWAK', 'BIZON', 'BIZUN', 'BLADY', 'BLADŹ', 'BLAGA', 'BLANK', 'BLANK', 'BLANT', 'BLASK', 'BLAZA', 'BLECH', 'BLEED', 'BLICH', 'BLINA', 'BLIND', 'BLINY', 'BLITZ', 'BLIŻA', 'BLOND', 'BLOND', 'BLUES', 'BLUFF', 'BLUZA', 'BLUZG', 'BŁAHY', 'BŁAWY', 'BŁOGI', 'BŁONA', 'BŁOTA', 'BŁOTO', 'BŁYSK', 'BNIEC', 'BOBAK', 'BOBAS', 'BOBBY', 'BOBEK', 'BOBER', 'BOBIK', 'BOBRY', 'BOCCE', 'BOCJA', 'BODAJ', 'BODHI', 'BODOT', 'BOHOR', 'BOJAR', 'BOJER', 'BOJKA', 'BOLAK', 'BOLAS', 'BOLEC', 'BOLEĆ', 'BOLEĆ', 'BOLEK', 'BOLEŃ', 'BOLID', 'BOLUS', 'BOLUS', 'BOMBA', 'BOMBA', 'BONET', 'BONGO', 'BONGO', 'BONIA', 'BONKA', 'BONUS', 'BONZA', 'BORAL', 'BORAN', 'BORDO', 'BOREK', 'BORKI', 'BORNY', 'BORTA', 'BORYL', 'BOSAK', 'BOSCH', 'BOSKA', 'BOSKI', 'BOSKI', 'BOTEK', 'BOTKI', 'BOTOX', 'BOZIA', 'BOZON', 'BOŻEC', 'BOŻEK', 'BOŻYĆ', 'BÓJKA', 'BRACH', 'BRAHA', 'BRAJL', 'BRAKI', 'BRAMA', 'BRAND', 'BRANT', 'BRAUN', 'BRAWO', 'BRAWO', 'BREAK', 'BREAK', 'BREJA', 'BREJK', 'BREWE', 'BRIDŻ', 'BRIEF', 'BRIKS', 'BRNĄĆ', 'BRODA', 'BROIĆ', 'BRONA', 'BRUDY', 'BRYDŻ', 'BRYJA', 'BRYKA', 'BRYLE', 'BRYŁA', 'BRYZA', 'BRY…EK', 'WICHR', 'WICKI', 'WIDAĆ', 'WIDAĆ', 'WIDEO', 'WIDEO', 'WIDIA', 'WIDŁY', 'WIDMO', 'WIDNY', 'WIDOK', 'WIECH', 'WIEJA', 'WIEKO', 'WIELE', 'WIELE', 'WIEŚĆ', 'WIEŚĆ', 'WIEŹĆ', 'WIEŻA', 'WIĘZI', 'WIĘZY', 'WIGNA', 'WIGOŃ', 'WIGOŃ', 'WIGOR', 'WIKOL', 'WILEC', 'WILGA', 'WILIA', 'WILKI', 'WILLA', 'WINDA', 'WINIĆ', 'WINKO', 'WINNA', 'WINNY', 'WINNY', 'WINNY', 'WINYL', 'WINYL', 'WIOLA', 'WIRAL', 'WIRAŻ', 'WIREK', 'WIRKI', 'WIRUS', 'WISKI', 'WISUS', 'WIŚTA', 'WITAĆ', 'WITAM', 'WITEŹ', 'WITEŹ', 'WITKA', 'WITWA', 'WIWAT', 'WIWAT', 'WIZAŻ', 'WIZJA', 'WIZON', 'WIZYR', 'WJAZD', 'WKŁAD', 'WKŁUĆ', 'WKOŁO', 'WKRĘT', 'WKRĘT', 'WKURW', 'WLEŹĆ', 'WŁOCH', 'WŁOIĆ', 'WŁOKA', 'WŁOSY', 'WŁOŚĆ', 'WŁÓKA', 'WNĘKA', 'WNUKA', 'WOBEC', 'WOBŁA', 'WODNY', 'WODÓR', 'WODUN', 'WODZA', 'WODŻU', 'WOJAK', 'WOJAŻ', 'WOJNA', 'WOKAL', 'WOKAL', 'WOKÓŁ', 'WOLAK', 'WOLEC', 'WOLEĆ', 'WOLEJ', 'WOLNE', 'WOLNO', 'WOLNY', 'WOLNY', 'WOLNY', 'WOLTA', 'WOŁAĆ', 'WOŁEK', 'WOŁGA', 'WONNY', 'WOŃKA', 'WOŃKI', 'WORAĆ', 'WOREK', 'WORKI', 'WOTUM', 'WOZAK', 'WOZIĆ', 'WOZIK', 'WOŹNA', 'WOŹNY', 'WÓDKA', 'WÓZEK', 'WPAŚĆ', 'WPIĄĆ', 'WPŁAW', 'WPŁYW', 'WPOIĆ', 'WPUST', 'WRAŻY', 'WRĘCZ', 'WRĘGA', 'WROGI', 'WRONA', 'WRONA', 'WRONI', 'WRONY', 'WRONY', 'WROST', 'WROTA', 'WRÓŚĆ', 'WRZEĆ', 'WRZOS', 'WRZÓD', 'WRZUT', 'WSIAĆ', 'WSIĄK', 'WSIEC', 'WSIOK', 'WSKAZ', 'WSKOK', 'WSNUĆ', 'WSPAK', 'WSPÓR', 'WSTAĆ', 'WSTĘP', 'WSTYD', 'WSYPA', 'WSZAK', 'WSZOŁ', 'WSZYĆ', 'WŚRÓD', 'WTEDY', 'WTŁUC', 'WTŁUC', 'WTOPA', 'WTÓRY', 'WTRĘT', 'WTYKA', 'WUCET', 'WUDET', 'WUJEK', 'WUJKO', 'WUSHU', 'WUWEJ', 'WWIAĆ', 'WWLEC', 'WYBIĆ', 'WYBÓJ', 'WYBÓR', 'WYBYĆ', 'WYCUG', 'WYDAĆ', 'WYDĄĆ', 'WYDMA', 'WYDÓJ', 'WYDRA', 'WYDRA', 'WYDRY', 'WYGON', 'WYJĄĆ', 'WYJEC', 'WYJEC', 'WYJŚĆ', 'WYKAZ', 'WYKON', 'WYKOP', 'WYKOT', 'WYKUĆ', 'WYKUP', 'WYLAĆ', 'WYLĄC', 'WYLĄC', 'WYLĄG', 'WYLEC', 'WYLEW', 'WYLĘG', 'WYLOT', 'WYŁAZ', 'WYŁOM', 'WYŁÓG', 'WYŁÓW', 'WYMAZ', 'WYMIĘ', 'WYMÓC', 'WYMÓG', 'WYMYĆ', 'WYMYK', 'WYMYK', 'WYNIK', 'WYNOS', 'WYPAD', 'WYPAŁ', 'WYPAS', 'WYPAS', 'WYPĘD', 'WYPIĆ', 'WYPIS', 'WYPÓR', 'WYPUK', 'WYRAJ', 'WYRAK', 'WYRAZ', 'WYRĄB', 'WYRKO', 'WYROK', 'WYRÓB', 'WYRÓJ', 'WYRWA', 'WYRYĆ', 'WYRYS', 'WYRYW', 'WYSAD', 'WYSÓŁ', 'WYSPA', 'WYSYP', 'WYTOK', 'WYTOP', 'WYTYK', 'WYWAB', 'WYWAR', 'WYWÓD', 'WYWÓZ', 'WYZUĆ', 'WYŻAR', 'WYŻĄĆ', 'WYŻĄĆ', 'WYŻEJ', 'WYŻEŁ', 'WYŻKA', 'WYŻLI', 'WYŻNI', 'WYŻUĆ', 'WYŻYĆ', 'WZBIĆ', 'WZDĄĆ', 'WZIĄĆ', 'WZIEW', 'WZLOT', 'WZMÓC', 'WZNOS', 'WZORY', 'WZROK', 'WZWÓD', 'WZWYŻ', 'WŻYTY', 'YACHT', 'YARIS', 'YERBA', 'YTONG', 'YUCCA', 'YUPPI', 'ZABIĆ', 'ZABÓJ', 'ZABÓR', 'ZACNY', 'ZAĆMA', 'ZADAĆ', 'ZADĄĆ', 'ZADEK', 'ZADNI', 'ZADRA', 'ZAFRA', 'ZAGAJ', 'ZAGON', 'ZAGON', 'ZAJAD', 'ZAJĄC', 'ZAJĄC', 'ZAJĄĆ', 'ZAJDA', 'ZAJEM', 'ZAJOB', 'ZAJŚĆ', 'ZAKAT', 'ZAKAZ', 'ZAKON', 'ZAKOS', 'ZAKUĆ', 'ZAKUP', 'ZAKUS', 'ZALAĆ', 'ZALĄC', 'ZALEC', 'ZALEW', 'ZALIŻ', 'ZAŁAM', 'ZAŁOM', 'ZAMEK', 'ZAMEK', 'ZAMĘT', 'ZAMIA', 'ZAMSZ', 'ZANDR', 'ZANIK', 'ZANIM', 'ZANNI', 'ZAPAD', 'ZAPAŁ', 'ZAPAS', 'ZAPĘD', 'ZAPIĆ', 'ZAPIS', 'ZARAZ', 'ZARÓB', 'ZARÓD', 'ZARYĆ', 'ZARYS', 'ZASIE', 'ZASIĘ', 'ZASÓB', 'ZASPA', 'ZASUW', 'ZASYP', 'ZAŚBY', 'ZATEM', 'ZATOR', 'ZAWAŁ', 'ZAWDY', 'ZAWIS', 'ZAWÓD', 'ZAWÓJ', 'ZAWÓR', 'ZAWYĆ', 'ZAZEN', 'ZAŻEC', 'ZAŻYĆ', 'ZĄBCE', 'ZĄBEK', 'ZBIEC', 'ZBIEG', 'ZBIEG', 'ZBIÓR', 'ZBITY', 'ZBOŻE', 'ZBÓŚĆ', 'ZBYRT', 'ZBYTY', 'ZDJĄĆ', 'ZDOIĆ', 'ZDROŃ', 'ZDRÓJ', 'ZDŻAR', 'ZEBRA', 'ZECER', 'ZEFIR', 'ZEGAR', 'ZEJŚĆ', 'ZENIT', 'ZENZA', 'ZERWA', 'ZETKA', 'ZETON', 'ZETOR', 'ZEZIK', 'ZEZUĆ', 'ZĘBAK', 'ZĘBNY', 'ZGAGA', 'ZGIĄĆ', 'ZGŁAD', 'ZGNAĆ', 'ZGNIĆ', 'ZGODA', 'ZGODA', 'ZGOIĆ', 'ZGOŁA', 'ZGRAĆ', 'ZGRED', 'ZGRYW', 'ZGRYZ', 'ZGUBA', 'ZGURB', 'ZIELE', 'ZIĘBA', 'ZIMNE', 'ZIMNO', 'ZIMNY', 'ZINĄD', 'ZINEB', 'ZIOŁA', 'ZIOŁO', 'ZIPAĆ', 'ZIRAM', 'ZJAWA', 'ZJAZD', 'ZJEŚĆ', 'ZLEWA', 'ZLEŹĆ', 'ZŁAJA', 'ZŁOGI', 'ZŁOIĆ', 'ZŁOŚĆ', 'ZŁOTO', 'ZŁOTY', 'ZŁOTY', 'ZŁOŻE', 'ZŁUDA', 'ZMAZA', 'ZMIAŁ', 'ZMIĄĆ', 'ZMIĘK', 'ZMIĘK', 'ZMORA', 'ZMOWA', 'ZMROK', 'ZMYŁA', 'ZMYSŁ', 'ZNANY', 'ZNICZ', 'ZNOIĆ', 'ZNOWU', 'ZOIZM', 'ZOŁZA', 'ZOŁZY', 'ZOMBI', 'ZONDA', 'ZOOID', 'ZORAĆ', 'ZORBA', 'ZORZA', 'ZOŚKA', 'ZOWĄD', 'ZRAZU', 'ZRAZY', 'ZROBY', 'ZROST', 'ZRÓŚĆ', 'ZRZEC', 'ZRZEZ', 'ZRZUT', 'ZRZYN', 'ZSIEC', 'ZSZYĆ', 'ZUBER', 'ZUCHY', 'ZUMBA', 'ZUPAK', 'ZUPKA', 'ZUPNY', 'ZURNA', 'ZUŻYĆ', 'ZWADA', 'ZWAŁA', 'ZWAŁY', 'ZWIAĆ', 'ZWIAD', 'ZWIĘZ', 'ZWLEC', 'ZWOIĆ', 'ZWORA', 'ZWROT', 'ZYDEL', 'ZYGAĆ', 'ZYSKA', 'ZYSKI', 'ZYZUŚ', 'ZŻYTY', 'ŹGNĄĆ', 'ŻABKA', 'ŻABOT', 'ŻADEN', 'ŻADNE', 'ŻAGAR', 'ŻAGLE', 'ŻALIĆ', 'ŻALNY', 'ŻAREK', 'ŻARŁO', 'ŻARNA', 'ŻARNY', 'ŻARTY', 'ŻĄDAĆ', 'ŻĄDŁO', 'ŻĄDNY', 'ŻĄDZA', 'ŻEBRO', 'ŻEBRY', 'ŻEBYŻ', 'ŻELEK', 'ŻELKA', 'ŻEŁWA', 'ŻENIĆ', 'ŻENUA', 'ŻERAĆ', 'ŻERCA', 'ŻERDŹ', 'ŻERNY', 'ŻETON', 'ŻGNĄĆ', 'ŻMIJA', 'ŻMIJE', 'ŻMUDA', 'ŻNIWA', 'ŻNIWO', 'ŻOŁNA', 'ŻONKA', 'ŻÓŁTY', 'ŻÓŁWI', 'ŻRĄCY', 'ŻULIA', 'ŻULIK', 'ŻUPAN', 'ŻUPAN', 'ŻUPNY', 'ŻURAW', 'ŻUREK', 'ŻUWIN', 'ŻUWKA', 'ŻUWNA', 'ŻUWNY', 'ŻUŻEL', 'ŻWACZ', 'ŻWAWY', 'ŻYCIE', 'ŻYDEK', 'ŻYLAK', 'ŻYLNY', 'ŻYŁKA', 'ŻYRAT', 'ŻYRAU', 'ŻYTKO', 'ŻYTNI', 'ŻYTNY', 'ŻYWIĆ', 'ŻYWIK', 'ŻYWNY', 'ŻYWOT', 'ŻYWOT', 'ŻYZNY',
+];
+const WORD_OF_THE_DAY = WORD_LIST[getRandomIndex(WORD_LIST.length)];
+
+const MAX_NUMBER_OF_ATTEMPTS = 6;
+
+const history = [];
+let currentWord = '';
+
+const init = () => {
+  console.log('👋 Witaj w Wordle');
+  console.log('Correct word is - " ' + WORD_OF_THE_DAY + ' "');
+
+  const KEYBOARD_KEYS = ['QWEĘRTYUIOÓP', 'AĄSŚDFGHJK', 'LŁZŹŻXCĆVBNŃM'];
+
+  const gameBoard = document.querySelector('#board');
+  const keyboard = document.querySelector('#keyboard');
+
+  generateBoard(gameBoard);
+  generateBoard(keyboard, 3, 14, KEYBOARD_KEYS, true);
+
+  document.addEventListener('keydown', event => onKeyDown(event.key));
+  gameBoard.addEventListener('animationend', event => event.target.setAttribute('data-animation', 'idle'));
+  keyboard.addEventListener('click', onKeyboardButtonClick);
+}
+
+const showMessage = (message) => {
+  const toast = document.createElement('li');
+
+  toast.textContent = message;
+  toast.className = 'toast';
+
+  document.querySelector('.toaster ul').prepend(toast);
+  
+  setTimeout(() => toast.classList.add('fade'), 1000);
+
+  toast.addEventListener('transitionend', (event) => event.target.remove());
+}
+
+const checkGuess = (guess, word) => {
+  const guessLetters = guess.split('');
+  const wordLetters = word.split('');
+  const remainingWordLetters = [];
+  const remainingGuessLetters = [];
+
+  const currentRow = document.querySelector(`#board ul[data-row='${history.length}']`);
+
+  currentRow.querySelectorAll('li').forEach((element, index) => {
+    element.setAttribute('data-status', 'none');
+    element.setAttribute('data-animation', 'flip');
+
+    element.style.animationDelay = `${index * 300}ms`;
+    element.style.transitionDelay = `${index * 400}ms`;
+  });
+
+  wordLetters.forEach((letter, index) => {
+    if (guessLetters[index] === letter) {
+      currentRow.querySelector(`li:nth-child(${index + 1})`)
+        .setAttribute('data-status', 'valid');
+
+      document
+        .querySelector(`[data-key='${letter}']`)
+        .setAttribute('data-status', 'valid');
+      
+        remainingWordLetters.push(false);
+        remainingGuessLetters.push(false);
+    } else {
+      remainingWordLetters.push(letter);
+      remainingGuessLetters.push(guessLetters[index]);
+    }
+  });
+
+  remainingWordLetters.forEach(letter => {
+    if (letter === false) return;
+
+    if (remainingGuessLetters.indexOf(letter) !== -1) {
+      const column = currentRow
+        .querySelector(`li:nth-child(${remainingGuessLetters.indexOf(letter) + 1})`);
+
+      column.setAttribute('data-status', 'invalid');
+      
+      const keyboardKey = document.querySelector(`[data-key='${letter}']`);
+
+      if (keyboardKey.getAttribute('data-status') !== 'valid') {
+        keyboardKey.setAttribute('data-status', 'invalid');
+      }
+    }
+  });
+
+  guessLetters.forEach(letter => {
+    const keyboardKey = document.querySelector(`[data-key='${letter}']`);
+    
+    if (keyboardKey.getAttribute('data-status') === 'empty') {
+      keyboardKey.setAttribute('data-status', 'none');
+    }
+  });
+
+  history.push(currentWord);
+  currentWord = '';
+}
+
+const onKeyboardButtonClick = (event) => {
+  if (event.target.nodeName === 'LI') {
+    onKeyDown(event.target.getAttribute('data-key'));
+  }
+}
+
+const onKeyDown = (key) => {
+  if (history.length >= MAX_NUMBER_OF_ATTEMPTS) return;
+
+  const currentRow = document.querySelector(`#board ul[data-row='${history.length}']`);
+
+  let targetColumn = currentRow.querySelector('[data-status="empty"]');
+
+  if (key === BACKSPACE_KEY) {
+    if (targetColumn === null) {
+      targetColumn = currentRow.querySelector('li:last-child');
+    } else {
+      targetColumn = targetColumn.previousElementSibling ?? targetColumn;
+    }
+
+    targetColumn.textContent = '';
+    targetColumn.setAttribute('data-status', 'empty');
+    
+    currentWord = currentWord.slice(0, -1);
+    
+    return;
+  }
+
+  if (key === ENTER_KEY) {
+    if (currentWord.length < 5) {
+      showMessage('Brakuje Ci kilku liter, nie sądzisz?');
+      return;
+    }
+
+    if (currentWord.length === 5 && WORD_LIST.includes(currentWord)) {
+      checkGuess(currentWord, WORD_OF_THE_DAY);
+    } else {
+      currentRow.setAttribute('data-animation', 'invalid');
+      showMessage('To nawet nie jest prawdziwe słowo, czyż nie?');
+    }
+
+    return;
+  }
+
+  if (currentWord.length >= 5) return;
+
+  const upperCaseLetter = key.toUpperCase();
+
+  if (/^[A-Ż]$/.test(upperCaseLetter)) {
+    currentWord += upperCaseLetter;
+
+    targetColumn.textContent = upperCaseLetter;
+    targetColumn.setAttribute('data-status', 'filled');
+    targetColumn.setAttribute('data-animation', 'pop');
+  }
+}
+
+const generateBoard = (board, rows = 6, columns = 5, keys = [], keyboard = false) => {
+  for (let row = 0; row < rows; row++) {
+    const elmRow = document.createElement('ul');
+
+    elmRow.setAttribute('data-row', row);
+
+    for (let column = 0; column < columns; column++) {
+      const elmColumn = document.createElement('li');
+      elmColumn.setAttribute('data-status', 'empty');
+      elmColumn.setAttribute('data-animation', 'idle');
+
+      if (keyboard && keys.length > 0) {
+        const key = keys[row].charAt(column);
+        elmColumn.textContent = key;
+        elmColumn.setAttribute('data-key', key);
+      }
+
+      if (keyboard && elmColumn.textContent === '') continue;
+
+      elmRow.appendChild(elmColumn);
+    }
+
+    board.appendChild(elmRow);
+  }
+
+  if (keyboard) {
+    const enterKey = document.createElement('li');
+    enterKey.setAttribute('data-key', ENTER_KEY);
+    enterKey.textContent = ENTER_KEY;
+    board.lastChild.prepend(enterKey);
+
+    const backspaceKey = document.createElement('li');
+    backspaceKey.setAttribute('data-key', BACKSPACE_KEY);
+    backspaceKey.textContent = BACKSPACE_KEY;
+    board.lastChild.append(backspaceKey);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+function getRandomIndex(maxLength) {
+  return Math.floor(Math.random() * Math.floor(maxLength));
+}
+
+  </script>
+</body>
+</html>

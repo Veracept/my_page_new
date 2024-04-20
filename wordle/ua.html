@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!--Head-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Veracept portfolio website.">
+    <meta name="author" content="Veracept">
+    <meta name="keywords"
+        content="website, Portfolio, github, html, css, webdev, googlefont, ankit, Veracept, freehost, html project, Rodina RP, Gerstlix">
+    <meta name="google-site-verification" content="-_vGTZ4HnVXhPBb64aXsyhaFefMCewkbBGKhiUa_xZg">
+    <meta name="google-adsense-account" content="ca-pub-4361307844960518">
+    <title>VS | Veracept</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="../assets/CSS/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="../assets/CSS/responsive.css">
+    <link rel="shortcut icon" href="../assets/IMG/avatar.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../assets/IMG/avatar.png">
+</head>
+<!--Head End-->
+  <style>
+
+:root {
+  --color-black: #121213;
+  --color-white: #fff;
+  --color-green: #538d4e;
+  --color-yellow: #B59F3B;
+  --color-gray-dark: #3A3A3C;
+  --color-gray-light: #818384;
+}
+
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+body {
+  background: var(--color-black);
+  color: var(--color-white);
+
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  min-height: 100vh;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+header { border-bottom: 1px solid var(--color-gray-dark); }
+
+h1 {
+  margin: 10px 0;
+  padding: 0;
+  text-align: center;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.toaster {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  width: fit-content;
+}
+
+.toaster ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toast {
+  background: var(--color-white);
+  border-radius: 4px;
+  color: var(--color-black);
+  padding: 1rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.fade { opacity: 0; }
+
+#board, #keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Between each row */
+  text-transform: uppercase;
+}
+
+#board ul,
+#keyboard ul {
+  display: flex;
+  list-style: none;
+  gap: 6px; /* Between each cell */
+  padding: 0;
+  margin: 0;
+}
+
+[data-status],
+[data-key] {
+  border: 2px solid var(--color-gray-dark);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 4rem;
+  width: 4rem;
+
+  user-select: none;
+}
+
+#keyboard {
+  gap: 8px; /* Between each row */
+  padding-bottom: 10px;
+}
+
+#keyboard ul { justify-content: center; }
+
+[data-key] {
+  background: var(--color-gray-light);
+  border: none;
+  border-radius: 4px;
+
+  font-size: 1rem;
+
+  height: 3.8rem;
+  width: 2.8rem;
+
+  cursor: pointer;
+
+  transition: all .3s ease-in-out;
+}
+
+[data-key='Enter'] { width: 6rem; }
+
+[data-key='Backspace'] {
+  background-image: url(./backspace.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  width: 4rem;
+}
+
+[data-status='filled']      { border: 1px solid var(--color-gray-light); }
+[data-status='valid']       { background: var(--color-green); }
+[data-status='invalid']     { background: var(--color-yellow); }
+[data-status='none']        { background: var(--color-gray-dark); }
+
+[data-animation='pop']      { animation: PopIn 100ms; }
+
+@keyframes PopIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+[data-animation='flip']     { animation: Flip .50s ease-in; }
+
+@keyframes Flip {
+  from {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(-90deg);
+  }
+  to {
+    transform: rotateX(0);
+  }
+}
+
+[data-animation='invalid']  { animation: Shake 600ms; }
+
+@keyframes Shake {
+  10%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 80% {
+    transform: translateX(2px);
+  }
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+  </style>
+<body>
+  <header>
+    <h2 style="font-size: 50px; text-align: center;">Wordle</h2>
+  </header>
+  <main>
+    <section id="board">
+    </section>
+  </main>
+  <div class="toaster">
+    <ul></ul>
+  </div>
+    <section id="keyboard">
+    </section>
+
+
+    <footer class="footer">
+      <div class="footer_upper">
+          <div class="footer_upper_div">
+              <h3>Games Projects</h3>
+              <a href="../games/tower.html">Build a Tower</a>
+              <a href="../games/cubes.html">Cut the Сube</a>
+              <a href="../games/bridge.html">Build a bridge</a>
+              <a href="../games/bridge.html">Generate Image</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Wordle</h3>
+              <a href="en.html">English</a>
+              <a href="ru.html">Russian</a>
+              <a href="ua.html">Ukranian</a>
+              <a href="pl.html">Polish</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Other Links</h3>
+              <a href="https://discord.com/invite/DeeuC7QFBA">Discord-Server</a>
+              <a href="">Code of this page on GitHub</a>
+              <a href="https://imgur.com/a/Oyq8elO">Disign portfolio on imgur</a>
+              <a href="https://veracept.bio.link/">My Bio-Link</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Get In Touch</h3>
+              <a class="flex align-centre gap5" href="mailto:jonikrmz@gmail.com">
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>jonikrmz@gmail.com</a>
+  
+              <div class="footer_upper_div_4_social">
+                  <a href="https://www.instagram.com/veracept/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                  <a href="https://github.com/Veracept"><i class="fa fa-github" aria-hidden="true"></i></a>
+                  <a href="https://t.me/veracept"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                  <a href="https://www.facebook.com/veracept"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                  <a href="https://vk.com/veracept"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                  <a href="https://www.youtube.com/channel/UCWKA2dYM_YGbRXqLjA7y_Xw"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+              </div>
+          </div>
+      </div>
+      <hr>
+      <div class="footer_lower">
+          <div class="footer_lower_text">
+              <p>&copy;<a href="#" style="text-align: center;">Veracept</a> | All Rights Reserved.</p>
+          </div>
+      </div>
+  </footer>
+ <!--Footer Section End-->
+    <!--Java Scripts-->
+    <!--Icons Scripts-->
+    <script src="https://kit.fontawesome.com/cdca6417c3.js" crossorigin="anonymous"></script>
+    <!--Particle Scripts-->
+    <script src="assets/JS/particles.js"></script>
+    <script src="assets/JS/app.js"></script>
+    <!--SMTP Scripts-->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!--Popup Message Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--Scroll Reveal Scripts-->
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <!--Typing Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!--Tilt Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <!--Main Java Scripts-->
+    <script src="assets/JS/script.js"></script>
+    <!--Java Scripts End-->
+  <script>
+
+'use strict';
+
+const BACKSPACE_KEY = 'Backspace';
+const ENTER_KEY = 'Enter';
+const WORD_LIST = [
+  'АБАЙЯ', 'АБВЕР', 'АБЗАЦ', 'АБОРТ', 'АБРИС', 'АБЦУГ', 'АВАЛЬ', 'АВАНС', 'АВГІТ', 'АВДИТ', 'АВЕНЮ', 'АВЕРС', 'АВІЗО', 'АВЛОС', 'АВРАЛ', 'АВРАН', 'АВТОЛ', 'АГАВА', 'АГАПЕ', 'АГЕНС', 'АГОРА', 'АГРАФ', 'АҐЕНС', 'АҐРУС', 'АДАКС', 'АДРОН', 'АДУКТ', 'АЕРОБ', 'АЕРОН', 'АЖГОН', 'АЗАРТ', 'АЗИЛЬ', 'АЙВАН', 'АЙМАК', 'АЙПАД', 'АЙПОД', 'АЙРАН', 'АЙФОН', 'АКАЖУ', 'АКАНТ', 'АКАНФ', 'АКОРД', 'АКРИЛ', 'АКСОН', 'АКТИВ', 'АКТИН', 'АКЦИЗ', 'АКЦІЯ', 'АЛАРМ', 'АЛГОЛ', 'АЛЕЛЬ', 'АЛИЧА', 'АЛІБІ', 'АЛКАН', 'АЛКЕН', 'АЛКІЛ', 'АЛКІН', 'АЛМАЗ', 'АЛОНЖ', 'АЛТЕЙ', 'АЛТЕЯ', 'АЛТИН', 'АЛУНД', 'АЛЬБА', 'АЛЬФА', 'АЛЯРМ', 'АМБАР', 'АМБРА', 'АМБРЕ', 'АМВОН', 'АМІАК', 'АМІНЬ', 'АМПЕР', 'АМПІР', 'АМПЛЬ', 'АНАША', 'АНГАР', 'АНГОБ', 'АНЗАЦ', 'АНІМА', 'АНІМЕ', 'АНІОН', 'АНКЕР', 'АНОНС', 'АНТИК', 'АНТРЕ', 'АНТЬЄ', 'АНЧАР', 'АОРТА', 'АПАРТ', 'АПЕКС', 'АПЕЛЬ', 'АПЛЕТ', 'АПНОЕ', 'АПОРТ', 'АПРЕТ', 'АПРОШ', 'АРГОН', 'АРГУС', 'АРДЕН', 'АРЕАЛ', 'АРЕНА', 'АРЕШТ', 'АРКАН', 'АРКУШ', 'АРМІЯ', 'АРСЕН', 'АРСИН', 'АРХІВ', 'АРШИН', 'АСАНА', 'АСТАТ', 'АСТМА', 'АСЦИТ', 'АТАКА', 'АТЛАС', 'АТТИК', 'АУДИТ', 'АУДІО', 'АУРУМ', 'АФЕКТ', 'АФЕРА', 'АФІКС', 'АФІША', 'АЧОЛІ', 'АШРАМ', 'БАБІТ', 'БАБКА', 'БАГАЖ', 'БАГЕР', 'БАГЕТ', 'БАГНО', 'БАГОР', 'БАҐҐІ', 'БАДАН', 'БАДДЯ', 'БАЗАР', 'БАЗИС', 'БАЙКА', 'БАКАЙ', 'БАКАН', 'БАКЕН', 'БАКИР', 'БАКУН', 'БАКША', 'БАЛАН', 'БАЛАС', 'БАЛЕТ', 'БАЛИК', 'БАЛІЯ', 'БАЛКА', 'БАЛОН', 'БАМІЯ', 'БАНАН', 'БАНДА', 'БАНДО', 'БАНЕР', 'БАНКА', 'БАНКО', 'БАНОШ', 'БАНТА', 'БАНТУ', 'БАНУШ', 'БАНЯК', 'БАРАЖ', 'БАРАК', 'БАРБА', 'БАРВА', 'БАРДА', 'БАРЕЖ', 'БАРЖА', 'БАРИТ', 'БАРИШ', 'БАРІЙ', 'БАРКА', 'БАРОК', 'БАСМА', 'БАСОК', 'БАСОН', 'БАСТР', 'БАТАТ', 'БАТИК', 'БАТІГ', 'БАТОН', 'БАТУТ', 'БАЧОК', 'БАШТА', 'БАЮРА', 'БАЯТІ', 'БЕДЖА', 'БЕЗУМ', 'БЕЙЗА', 'БЕКАР', 'БЕКЕТ', 'БЕКОН', 'БЕМБА', 'БЕМІТ', 'БЕНДІ', 'БЕНТО', 'БЕРДО', 'БЕРЕГ', 'БЕРЕТ', 'БЕРИЛ', 'БЕРЛО', 'БЕРМА', 'БЕТОН', 'БЗДУР', 'БИДЛО', 'БИЛЛЯ', 'БИНДА', 'БИРКА', 'БИРСА', 'БИРФА', 'БИТВА', 'БИТКА', 'БИТТЯ', 'БІАКС', 'БІБОП', 'БІВАК', 'БІГОС', 'БІГУС', 'БІҐОС', 'БІДКА', 'БІДОН', 'БІЙКА', 'БІЙНЯ', 'БІЛЕТ', 'БІЛЛЬ', 'БІЛОК', 'БІЛОН', 'БІЛЯК', 'БІЛЯШ', 'БІНГО', 'БІНОМ', 'БІОТА', 'БІПЕР', 'БІРЖА', 'БІСЕР', 'БІСТР', 'БІСУС', 'БІТЕР', 'БІТУМ', 'БІШАР', 'БЛАГО', 'БЛАНК', 'БЛИЗЬ', 'БЛИСК', 'БЛІНТ', 'БЛУЗА', 'БЛЮДО', 'БЛЮЗА', 'БЛЯСК', 'БЛЯХА', 'БОБИК', 'БОДНЯ', 'БОДХІ', 'БОДЯН', 'БОЖБА', 'БОЗОН', 'БОЇНГ', 'БОЇЩЕ', 'БОЙНЯ', 'БОЙОК', 'БОКАЖ', 'БОКАЛ', 'БОКОР', 'БОЛІД', 'БОЛЮС', 'БОМБА', 'БОНУС', 'БОРАН', 'БОРАТ', 'БОРДО', 'БОРЕЙ', 'БОРИД', 'БОРНЯ', 'БОРТЬ', 'БОТИК', 'БОФОН', 'БОЧКА', 'БОЧОК', 'БРАГА', 'БРАДЖ', 'БРАМА', 'БРАНЧ', 'БРАНЬ', 'БРЕВЕ', 'БРЕЙК', 'БРЕНД', 'БРИДЖ', 'БРИДЬ', 'БРИЖА', 'БРИЛА', 'БРИЛЬ', 'БРИЦЯ', 'БРІОШ', 'БРОВА', 'БРОНХ', 'БРОНЬ', 'БРОНЯ', 'БРУХТ', 'БРЯЗК', 'БУБКА', 'БУБОН', 'БУДКА', 'БУДЯК', 'БУЗОК', 'БУЙОК', 'БУКВА', 'БУКЕР', 'БУКЕТ', 'БУКЛЕ', 'БУКЛЯ', 'БУКСА', 'БУЛАТ', 'БУЛІТ', 'БУЛКА', 'БУЛЛА', 'БУНДА', 'БУНДЗ', 'БУРАВ', 'БУРАН', 'БУРАТ', 'БУРДА', 'БУРКА', 'БУРСА', 'БУРТА', 'БУРУН', 'БУРЯК', 'БУСОЛ', 'БУТАН', 'БУТИК', 'БУТИЛ', 'БУТИН', 'БУТИТ', 'БУТІК', 'БУТОН', 'БУТТЯ', 'БУТУТ', 'БУФЕР', 'БУФЕТ', 'БУХАН', 'БУХІД', 'БУХТА', 'БУЦИК', 'БУЧОК', 'БЮВАР', 'БЮВЕТ', 'БЮКСА', 'БЮРКО', 'ВАБИК', 'ВАВКА', 'ВАГОН', 'ВАГУС', 'ВАДІЯ', 'ВАЖОК', 'ВАЗОН', 'ВАЙДА', 'ВАКАТ', 'ВАКСА', 'ВАКУФ', 'ВАЛЕР', 'ВАЛЕТ', 'ВАЛИК', 'ВАЛІА', 'ВАЛІН', 'ВАЛКА', 'ВАЛОК', 'ВАЛУН', 'ВАЛУХ', 'ВАЛЬС', 'ВАМБІ', 'ВАННА', 'ВАНТА', 'ВАПНО', 'ВАРАЙ', 'ВАРГА', 'ВАРКА', 'ВАРНА', 'ВАРТА', 'ВАРУС', 'ВАСАГ', 'ВАТЕР', 'ВАТИН', 'ВАТКА', 'ВАТРА', 'ВАФЛЯ', 'ВАХТА', 'ВДАЧА', 'ВДЯКА', 'ВЕБЕР', 'ВЕЖКА', 'ВЕКША', 'ВЕЛИЧ', 'ВЕЛУМ', 'ВЕЛЬД', 'ВЕЛЮР', 'ВЕНДА', 'ВЕНТА', 'ВЕРБА', 'ВЕРВА', 'ВЕРЕД', 'ВЕРЕС', 'ВЕРЕЯ', 'ВЕРЖЕ', 'ВЕРЛО', 'ВЕРША', 'ВЕСЛО', 'ВЕСНА', 'ВЕЧІР', 'ВЗВОД', 'ВИБІГ', 'ВИБІЙ', 'ВИБІЛ', 'ВИБІР', 'ВИБУХ', 'ВИВАР', 'ВИВИХ', 'ВИВІД', 'ВИВІЗ', 'ВИГАД', 'ВИГАР', 'ВИГИН', 'ВИГІН', 'ВИГУК', 'ВИГУЛ', 'ВИДИХ', 'ВИДІЛ', 'ВИДМА', 'ВИЖГА', 'ВИЖИМ', 'ВИЖИН', 'ВИЇЗД', 'ВИКАЗ', 'ВИКИД', 'ВИКОП', 'ВИКОС', 'ВИКОТ', 'ВИКУП', 'ВИЛАЗ', 'ВИЛИВ', 'ВИЛІМ', 'ВИЛІТ', 'ВИЛКА', 'ВИЛОВ', 'ВИЛОМ', 'ВИМАХ', 'ВИМІН', 'ВИМІР', 'ВИНОС', 'ВИНЦЕ', 'ВИПАД', 'ВИПАЛ', 'ВИПАР', 'ВИПАС', 'ВИПИН', 'ВИПИС', 'ВИПИТ', 'ВИПІТ', 'ВИРАЗ', 'ВИРВА', 'ВИРІБ', 'ВИРІД', 'ВИРІЗ', 'ВИРІЙ', 'ВИРОК', 'ВИРУБ', 'ВИРЯД', 'ВИСАД', 'ВИСИП', 'ВИСІВ', 'ВИСОК', 'ВИСПА', 'ВИТИН', 'ВИТІК', 'ВИТОК', 'ВИТОП', 'ВИТТЯ', 'ВИТЯГ', 'ВИХІД', 'ВИХОР', 'ВИШАР', 'ВИШКА', 'ВИШНЯ', 'ВИЩИП', 'ВИЩИР', 'ВІДЕО', 'ВІДОМ', 'ВІДРО', 'ВІЖКА', 'ВІЗАЖ', 'ВІЗИТ', 'ВІЗІЯ', 'ВІЗОК', 'ВІЙКА', 'ВІЙНА', 'ВІЙЦЕ', 'ВІКНО', 'ВІЛІС', 'ВІЛЛА', 'ВІНИК', 'ВІНІЛ', 'ВІНОК', 'ВІНОЛ', 'ВІНЦЕ', 'ВІОЛА', 'ВІРАЖ', 'ВІРОЗ', 'ВІРУС', 'ВІСКІ', 'ВІСПА', 'ВІСТЬ', 'ВІТЕР', 'ВІТКА', 'ВІТТЯ', 'ВІЧКО', 'ВІШАК', 'ВІШКА', 'ВІЯЛО', 'ВКЛАД', 'ВЛАДА', 'ВМІСТ', 'ВОВНА', 'ВОЗИК', 'ВОКАЛ', 'ВОЛАН', 'ВОЛГА', 'ВОЛОК', 'ВОЛОС', 'ВОЛОТ', 'ВОЛОФ', 'ВОЛЬТ', 'ВОРОК', 'ВОРОХ', 'ВОРСА', 'ВОТУМ', 'ВОХРА', 'ВПЛИВ', 'ВПУСК', 'ВРАЗА', 'ВРОДА', 'ВРУНО', 'ВСТУП', 'ВТЕЧА', 'ВТИСК', 'ВТІХА', 'ВТОМА', 'ВТОРА', 'ВУАЛЬ', 'ВУДКА', 'ВУЗДА', 'ВУЗОЛ', 'ВУЛИК', 'ВУЛІЙ', 'ВУРДА', 'ВУС…АЖ', 'ТИРАЖ', 'ТИРИТ', 'ТИРЛО', 'ТИРСА', 'ТИТАН', 'ТИТЛА', 'ТИТЛО', 'ТИТУЛ', 'ТИЧБА', 'ТИЧКА', 'ТИЧОК', 'ТІАРА', 'ТІПУН', 'ТІСТО', 'ТІЧКА', 'ТІЧНЯ', 'ТЛІНЬ', 'ТОВАР', 'ТОВЩА', 'ТОДЕС', 'ТОКАЙ', 'ТОКЕН', 'ТОЛАР', 'ТОМАТ', 'ТОМИК', 'ТОМОС', 'ТОНДО', 'ТОНЕР', 'ТОНІК', 'ТОННА', 'ТОНУС', 'ТОПАЗ', 'ТОПІК', 'ТОПІТ', 'ТОПКА', 'ТОПОС', 'ТОПУЗ', 'ТОРБА', 'ТОРИТ', 'ТОРІЙ', 'ТОРОН', 'ТОРОС', 'ТОТЕМ', 'ТОЧКА', 'ТОЧОК', 'ТРАВА', 'ТРАКТ', 'ТРАНС', 'ТРАНШ', 'ТРАСА', 'ТРАСТ', 'ТРАТА', 'ТРАУР', 'ТРЕБА', 'ТРЕЙЛ', 'ТРЕЛЬ', 'ТРЕНД', 'ТРЕНЧ', 'ТРЕСТ', 'ТРЕФА', 'ТРИБА', 'ТРИЗМ', 'ТРИКО', 'ТРИНА', 'ТРИУХ', 'ТРІАС', 'ТРІЄР', 'ТРІОД', 'ТРІСК', 'ТРОМБ', 'ТРОМП', 'ТРОПА', 'ТРОЩА', 'ТРОЯК', 'ТРОЯН', 'ТРУБА', 'ТРУНА', 'ТРУПА', 'ТРЮМО', 'ТСУГА', 'ТУАЛЬ', 'ТУБИК', 'ТУБУС', 'ТУЛІЙ', 'ТУЛІЯ', 'ТУЛУБ', 'ТУМАН', 'ТУМБА', 'ТУМЕН', 'ТУМОР', 'ТУПИК', 'ТУПІТ', 'ТУРКА', 'ТУРНЕ', 'ТУСАН', 'ТУФІТ', 'ТУФЛЯ', 'ТУФТА', 'ТЮБАЖ', 'ТЮБИК', 'ТЮНЕР', 'ТЮРБЕ', 'ТЮРМА', 'ТЮТЮН', 'ТЯГАР', 'ТЯГАЧ', 'ТЯГЛО', 'ТЯГУН', 'ТЯЖБА', 'ТЯЖОК', 'ТЯМКА', 'УАЗИК', 'УБРУС', 'УВАГА', 'УВЕЇТ', 'УГОДА', 'УДАЧА', 'УЗВАР', 'УЗВІЗ', 'УКЛАД', 'УКЛІН', 'УКЛОН', 'УКРІП', 'УЛЬВА', 'УМБОН', 'УМБРА', 'УМІСТ', 'УМОВА', 'УНАБІ', 'УНАДА', 'УНІЗМ', 'УНЦІЯ', 'УПЛИВ', 'УПРЯЖ', 'УРАЗА', 'УРЕАТ', 'УРЕМА', 'УРИНА', 'УРОДА', 'УСМІХ', 'УСПІХ', 'УСТАВ', 'УСТУП', 'УТВІР', 'УТЕЧА', 'УТИЛЬ', 'УТИСК', 'УТІХА', 'УТОМА', 'УЯВНЕ', 'ФАБРА', 'ФАВОР', 'ФАГОТ', 'ФАЗИС', 'ФАЙДА', 'ФАЙКА', 'ФАКЕЛ', 'ФАЛДА', 'ФАЛОС', 'ФАЛЬЦ', 'ФАЛЬШ', 'ФАНЗА', 'ФАРАД', 'ФАРБА', 'ФАРСІ', 'ФАСАД', 'ФАСЕТ', 'ФАСКА', 'ФАСОН', 'ФАТВА', 'ФАТИН', 'ФАТУМ', 'ФАУНА', 'ФАЦЕТ', 'ФАЦІЯ', 'ФАЯНС', 'ФЕЛОН', 'ФЕНІЛ', 'ФЕНІТ', 'ФЕНОЛ', 'ФЕРИТ', 'ФЕРМА', 'ФЕРУМ', 'ФЕСКА', 'ФЕТВА', 'ФЕТИШ', 'ФІАКР', 'ФІБРА', 'ФІДЕР', 'ФІДЖІ', 'ФІЗІЯ', 'ФІКУС', 'ФІКШН', 'ФІЛЕЙ', 'ФІЛІТ', 'ФІЛІЯ', 'ФІЛЬМ', 'ФІЛЬЦ', 'ФІМОЗ', 'ФІНАЛ', 'ФІНІК', 'ФІНІШ', 'ФІОРД', 'ФІРМА', 'ФІТИН', 'ФІТОЛ', 'ФІШКА', 'ФЙОРД', 'ФЛАНГ', 'ФЛАНК', 'ФЛЕЙЦ', 'ФЛІНТ', 'ФЛІРТ', 'ФЛОКС', 'ФЛОПІ', 'ФЛОРА', 'ФЛУОР', 'ФЛЬОР', 'ФЛЮЇД', 'ФЛЮОР', 'ФЛЯГА', 'ФОБІЯ', 'ФОКУС', 'ФОЛАТ', 'ФОЛІО', 'ФОЛІЯ', 'ФОЛЬК', 'ФОМОЗ', 'ФОНДЮ', 'ФОНОН', 'ФОРМА', 'ФОРТЕ', 'ФОРУМ', 'ФОТОН', 'ФРАЗА', 'ФРАХТ', 'ФРЕЗА', 'ФРЕЙМ', 'ФРЕНЧ', 'ФРЕОН', 'ФРОНТ', 'ФРУКТ', 'ФУГАС', 'ФУЕТЕ', 'ФУЖЕР', 'ФУЗІЯ', 'ФУКУС', 'ФУЛЯР', 'ФУРАЖ', 'ФУРАН', 'ФУРКА', 'ФУРМА', 'ФУРОР', 'ФУТРО', 'ФЮЗЕН', 'ХАБАР', 'ХАВКА', 'ХАДИС', 'ХАДІС', 'ХАЙДА', 'ХАЙКУ', 'ХАЛАТ', 'ХАЛВА', 'ХАМАМ', 'ХАМОН', 'ХАНАТ', 'ХАНУМ', 'ХАРАМ', 'ХАРЧО', 'ХАТКА', 'ХАТНЄ', 'ХАУСА', 'ХВАЛА', 'ХВИЛЯ', 'ХВІСТ', 'ХЕДЕР', 'ХЕЛАТ', 'ХЕМІЯ', 'ХЕМОЗ', 'ХЕРЕС', 'ХИЖКА', 'ХИТУН', 'ХІАЗМ', 'ХІЛУС', 'ХІМІЯ', 'ХІМУС', 'ХІНДІ', 'ХІНІН', 'ХІНОН', 'ХІТИН', 'ХІТОН', 'ХЛЮЩА', 'ХМАРА', 'ХМІЛЬ', 'ХМОНГ', 'ХОАНА', 'ХОБОТ', 'ХОДКА', 'ХОДУН', 'ХОКЕЙ', 'ХОЛІН', 'ХОЛКА', 'ХОЛОД', 'ХОМУТ', 'ХОРАЛ', 'ХОРДА', 'ХОРЕЙ', 'ХОРЕЯ', 'ХОСЕН', 'ХРЕСТ', 'ХРУСК', 'ХРУСТ', 'ХРЯСК', 'ХУМУС', 'ХУНТА', 'ХУРАЛ', 'ХУРМА', 'ХУТІР', 'ХУТРО', 'ХУЦПА', 'ЦАНГА', 'ЦАПФА', 'ЦАРАТ', 'ЦВІЛЬ', 'ЦВІТЬ', 'ЦЕБЕР', 'ЦЕБРО', 'ЦЕГЛА', 'ЦЕДРА', 'ЦЕЗІЙ', 'ЦЕЛОН', 'ЦЕНОЗ', 'ЦЕНТР', 'ЦЕРИТ', 'ЦЕРІЙ', 'ЦЕСІЯ', 'ЦЕХІН', 'ЦИБУК', 'ЦИБУХ', 'ЦИГУН', 'ЦИКЛЯ', 'ЦИМЕС', 'ЦИМУС', 'ЦИНГА', 'ЦИНІЯ', 'ЦИРОЗ', 'ЦИСТА', 'ЦИТОЗ', 'ЦИТРА', 'ЦИФРА', 'ЦІВКА', 'ЦІЛИК', 'ЦІПОК', 'ЦНОТА', 'ЦОКІТ', 'ЦУКАТ', 'ЦУКОР', 'ЦУРКА', 'ЦЯТКА', 'ЧАБЕР', 'ЧАВАН', 'ЧАВУН', 'ЧАГАР', 'ЧАДРА', 'ЧАЙНА', 'ЧАЙОК', 'ЧАКАН', 'ЧАКРА', 'ЧАЛМА', 'ЧАНГО', 'ЧАПАН', 'ЧАРКА', 'ЧАСЕН', 'ЧАШКА', 'ЧВАРА', 'ЧВИРЯ', 'ЧЕДЕР', 'ЧЕЄНН', 'ЧЕРВА', 'ЧЕРГА', 'ЧЕРЕД', 'ЧЕРЕН', 'ЧЕРЕП', 'ЧЕРЕС', 'ЧЕСТЬ', 'ЧИГИР', 'ЧИЛИМ', 'ЧИНАР', 'ЧИРВА', 'ЧИРЯК', 'ЧИСЛО', 'ЧИТВО', 'ЧИФІР', 'ЧИХИР', 'ЧІБЧА', 'ЧІПКА', 'ЧІПОК', 'ЧІЧКА', 'ЧОБІТ', 'ЧОВЕН', 'ЧОКТО', 'ЧОПИК', 'ЧОПОК', 'ЧОХОЛ', 'ЧУБИК', 'ЧУБОК', 'ЧУБУК', 'ЧУВАЛ', 'ЧУТКА', 'ЧУТТЯ', 'ЧУЧХЕ', 'ШАБАТ', 'ШАБАШ', 'ШАБЕР', 'ШАБЛЯ', 'ШАЙБА', 'ШАЛАШ', 'ШАЛИК', 'ШАЛОН', 'ШАЛОТ', 'ШАМОТ', 'ШАНКР', 'ШАПКА', 'ШАСЛА', 'ШАТІЯ', 'ШАТРО', 'ШАТТЛ', 'ШАТУН', 'ШАТУШ', 'ШАФКА', 'ШАХВА', 'ШАХТА', 'ШАШКА', 'ШВАЛЬ', 'ШВОРА', 'ШЕВРО', 'ШЕЛАК', 'ШЕЛЕХ', 'ШЕЛЬФ', 'ШЕЛЮГ', 'ШЕЛЯГ', 'ШЕПІТ', 'ШЕРЕГ', 'ШЕРЕХ', 'ШИБЕР', 'ШИБКА', 'ШИЇЗМ', 'ШИЙКА', 'ШИНКА', 'ШИННЯ', 'ШИНОК', 'ШИПИК', 'ШИРМА', 'ШИТВО', 'ШИТТЯ', 'ШИФЕР', 'ШИФОН', 'ШИХТА', 'ШИШАК', 'ШИШКА', 'ШІАЦУ', 'ШКАЛА', 'ШКАПА', 'ШКВАЛ', 'ШКІРА', 'ШКОЛА', 'ШКУРА', 'ШЛАНГ', 'ШЛЕЙФ', 'ШМАТА', 'ШМИГА', 'ШНАПС', 'ШОКЕР', 'ШОЛОМ', 'ШОПКА', 'ШОРЕЯ', 'ШПАГА', 'ШПАЛА', 'ШПАНА', 'ШПАРА', 'ШПЕНЬ', 'ШПИЛЬ', 'ШПИЦЯ', 'ШПОНА', 'ШПОРА', 'ШПРИЦ', 'ШПУЛЯ', 'ШПУНТ', 'ШРИФТ', 'ШРУТІ', 'ШТАБА', 'ШТАЗІ', 'ШТАМБ', 'ШТАМП', 'ШТЕЙН', 'ШТЕТЛ', 'ШТИБА', 'ШТИЛЬ', 'ШТИФТ', 'ШТОРА', 'ШТОРМ', 'ШТРАФ', 'ШТРЕК', 'ШТРИК', 'ШТРИХ', 'ШТУКА', 'ШТУРМ', 'ШУБКА', 'ШУВАР', 'ШУЛИК', 'ШУМОК', 'ШУРПА', 'ШУРУП', 'ШУФЛЯ', 'ШУШУН', 'ШХУНА', 'ЩАСТЯ', 'ЩЕБЕТ', 'ЩЕБІТ', 'ЩЕРБА', 'ЩИПОК', 'ЩИТОК', 'ЩІПКА', 'ЩІТКА', 'ЩІЧКА', 'ЩОГЛА', 'ЩОПТА', 'ЮГУРТ', 'ЮДОЛЬ', 'ЮКОЛА', 'ЮФЕРС', 'ЯВИЩЕ', 'ЯГЕЛЬ', 'ЯГОДА', 'ЯДУХА', 'ЯЄЧКО', 'ЯЄЧНЯ', 'ЯЄШНЯ', 'ЯЛИНА', 'ЯЛИЦЯ', 'ЯМАХА', 'ЯМИЩА', 'ЯМИЩЕ', 'ЯМНИК', 'ЯНТАР', 'ЯРИЗА', 'ЯРИНА', 'ЯРИЦЯ', 'ЯРЛИК', 'ЯРУГА', 'ЯРЧУК', 'ЯСЕНЬ', 'ЯСМИН', 'ЯСПИС', 'ЯХОНТ',
+];
+const WORD_OF_THE_DAY = WORD_LIST[getRandomIndex(WORD_LIST.length)];
+
+// В случае необходимости изменения сложности игры
+const MAX_NUMBER_OF_ATTEMPTS = 6;
+
+const history = [];
+let currentWord = '';
+
+// Настройка и инициализация игры
+const init = () => {
+  console.log('👋 Ласкаво просимо до Wordle');
+  console.log('Correct word is - " ' + WORD_OF_THE_DAY + ' "');
+
+  const KEYBOARD_KEYS = ['ЙЦУКЕНГШЩЗХЇ', 'ФІВАПРОЛДЖЄ', 'ЯЧСМИТЬБЮ'];
+
+  // Получить игровое поле и клавиатуру
+  const gameBoard = document.querySelector('#board');
+  const keyboard = document.querySelector('#keyboard');
+
+  // Создать игровое поле и клавиатуру
+  generateBoard(gameBoard);
+  generateBoard(keyboard, 3, 12, KEYBOARD_KEYS, true);
+
+  // Настройка обработчиков событий
+  document.addEventListener('keydown', event => onKeyDown(event.key));
+  gameBoard.addEventListener('animationend', event => event.target.setAttribute('data-animation', 'idle'));
+  keyboard.addEventListener('click', onKeyboardButtonClick);
+}
+
+const showMessage = (message) => {
+  const toast = document.createElement('li');
+
+  toast.textContent = message;
+  toast.className = 'toast';
+
+  document.querySelector('.toaster ul').prepend(toast);
+  
+  setTimeout(() => toast.classList.add('fade'), 1000);
+
+  toast.addEventListener('transitionend', (event) => event.target.remove());
+}
+
+const checkGuess = (guess, word) => {
+  const guessLetters = guess.split('');
+  const wordLetters = word.split('');
+  const remainingWordLetters = [];
+  const remainingGuessLetters = [];
+
+  // Найти текущую активную строку
+  const currentRow = document.querySelector(`#board ul[data-row='${history.length}']`);
+
+  // Первый этап: установка базовых значений для каждого столбца в текущей строке
+  currentRow.querySelectorAll('li').forEach((element, index) => {
+    element.setAttribute('data-status', 'none');
+    element.setAttribute('data-animation', 'flip');
+
+    // Каждая буква должна начать свою анимацию вдвое позже, чем предыдущая буква
+    element.style.animationDelay = `${index * 300}ms`;
+    element.style.transitionDelay = `${index * 400}ms`;
+  });
+
+  // Второй этап: поиск всех верных букв и создание списка оставшихся букв
+  wordLetters.forEach((letter, index) => {
+    if (guessLetters[index] === letter) {
+      currentRow.querySelector(`li:nth-child(${index + 1})`)
+        .setAttribute('data-status', 'valid');
+
+      document
+        .querySelector(`[data-key='${letter}']`)
+        .setAttribute('data-status', 'valid');
+      
+        remainingWordLetters.push(false);
+        remainingGuessLetters.push(false);
+    } else {
+      remainingWordLetters.push(letter);
+      remainingGuessLetters.push(guessLetters[index]);
+    }
+  });
+
+  // Третий этап: поиск всех неверных букв
+  remainingWordLetters.forEach(letter => {
+    if (letter === false) return;
+
+    if (remainingGuessLetters.indexOf(letter) !== -1) {
+      const column = currentRow
+        .querySelector(`li:nth-child(${remainingGuessLetters.indexOf(letter) + 1})`);
+
+      column.setAttribute('data-status', 'invalid');
+      
+      const keyboardKey = document.querySelector(`[data-key='${letter}']`);
+
+      if (keyboardKey.getAttribute('data-status') !== 'valid') {
+        keyboardKey.setAttribute('data-status', 'invalid');
+      }
+    }
+  });
+
+  // Четвертый этап: поиск отсутствующих букв на клавиатуре
+  guessLetters.forEach(letter => {
+    const keyboardKey = document.querySelector(`[data-key='${letter}']`);
+    
+    if (keyboardKey.getAttribute('data-status') === 'empty') {
+      keyboardKey.setAttribute('data-status', 'none');
+    }
+  });
+
+  history.push(currentWord);
+  currentWord = '';
+}
+
+const onKeyboardButtonClick = (event) => {
+  if (event.target.nodeName === 'LI') {
+    onKeyDown(event.target.getAttribute('data-key'));
+  }
+}
+
+const onKeyDown = (key) => {
+  if (history.length >= MAX_NUMBER_OF_ATTEMPTS) return;
+
+  const currentRow = document.querySelector(`#board ul[data-row='${history.length}']`);
+
+  let targetColumn = currentRow.querySelector('[data-status="empty"]');
+
+  if (key === BACKSPACE_KEY) {
+    if (targetColumn === null) {
+      targetColumn = currentRow.querySelector('li:last-child');
+    } else {
+      targetColumn = targetColumn.previousElementSibling ?? targetColumn;
+    }
+
+    targetColumn.textContent = '';
+    targetColumn.setAttribute('data-status', 'empty');
+    
+    currentWord = currentWord.slice(0, -1);
+    
+    return;
+  }
+
+  if (key === ENTER_KEY) {
+    if (currentWord.length < 5) {
+      showMessage('Вам не хватает нескольких букв, не так ли?');
+      return;
+    }
+
+    if (currentWord.length === 5 && WORD_LIST.includes(currentWord)) {
+      checkGuess(currentWord, WORD_OF_THE_DAY);
+    } else {
+      currentRow.setAttribute('data-animation', 'invalid');
+      showMessage('Это даже не настоящее слово, не так ли?');
+    }
+
+    return;
+  }
+
+  if (currentWord.length >= 5) return;
+
+  const upperCaseLetter = key.toUpperCase();
+
+  if (/^[А-ЯЁІЇЄҐ]$/.test(upperCaseLetter)) {
+    currentWord += upperCaseLetter;
+
+    targetColumn.textContent = upperCaseLetter;
+    targetColumn.setAttribute('data-status', 'filled');
+    targetColumn.setAttribute('data-animation', 'pop');
+  }
+}
+
+const generateBoard = (board, rows = 6, columns = 5, keys = [], keyboard = false) => {
+  for (let row = 0; row < rows; row++) {
+    const elmRow = document.createElement('ul');
+
+    elmRow.setAttribute('data-row', row);
+
+    for (let column = 0; column < columns; column++) {
+      const elmColumn = document.createElement('li');
+      elmColumn.setAttribute('data-status', 'empty');
+      elmColumn.setAttribute('data-animation', 'idle');
+
+      if (keyboard && keys.length > 0) {
+        const key = keys[row].charAt(column);
+        elmColumn.textContent = key;
+        elmColumn.setAttribute('data-key', key);
+      }
+
+      if (keyboard && elmColumn.textContent === '') continue;
+
+      elmRow.appendChild(elmColumn);
+    }
+
+    board.appendChild(elmRow);
+  }
+
+  if (keyboard) {
+    const enterKey = document.createElement('li');
+    enterKey.setAttribute('data-key', ENTER_KEY);
+    enterKey.textContent = ENTER_KEY;
+    board.lastChild.prepend(enterKey);
+
+    const backspaceKey = document.createElement('li');
+    backspaceKey.setAttribute('data-key', BACKSPACE_KEY);
+    backspaceKey.textContent = BACKSPACE_KEY;
+    board.lastChild.append(backspaceKey);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+function getRandomIndex(maxLength) {
+  return Math.floor(Math.random() * Math.floor(maxLength));
+}
+
+  </script>
+</body>
+</html>
