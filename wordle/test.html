@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!--Head-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Veracept portfolio website.">
+    <meta name="author" content="Veracept">
+    <meta name="keywords"
+        content="website, Portfolio, github, html, css, webdev, googlefont, ankit, Veracept, freehost, html project, Rodina RP, Gerstlix">
+    <meta name="google-site-verification" content="-_vGTZ4HnVXhPBb64aXsyhaFefMCewkbBGKhiUa_xZg">
+    <meta name="google-adsense-account" content="ca-pub-4361307844960518">
+    <title>VS | Veracept</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="../assets/CSS/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="../assets/CSS/responsive.css">
+    <link rel="shortcut icon" href="../assets/IMG/avatar.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../assets/IMG/avatar.png">
+</head>
+<!--Head End-->
+  <style>
+
+:root {
+  --color-black: #121213;
+  --color-white: #fff;
+  --color-green: #538d4e;
+  --color-yellow: #B59F3B;
+  --color-gray-dark: #3A3A3C;
+  --color-gray-light: #818384;
+}
+
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+body {
+  background: #F5F5F5;
+  color: var(--color-white);
+
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  min-height: 100vh;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+header { border-bottom: 1px solid var(--color-gray-dark); }
+
+h2 {
+  margin: 10px 0;
+  padding: 0;
+  text-align: center;
+  color:var(--color-green); 
+  margin-bottom: -50px;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.toaster {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  width: fit-content;
+}
+
+.toaster ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toast {
+  background: var(--color-white);
+  border-radius: 4px;
+  color: var(--color-black);
+  padding: 1rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 20px;
+}
+
+.fade { opacity: 0; }
+
+#board, #keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Between each row */
+  text-transform: uppercase;
+}
+
+#board ul,
+#keyboard ul {
+  display: flex;
+  list-style: none;
+  gap: 6px; /* Between each cell */
+  padding: 0;
+  margin: 0;
+}
+
+[data-status],
+[data-key] {
+  border: 2px solid var(--color-gray-dark);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2rem;
+  border-radius: 5px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 4rem;
+  width: 4rem;
+
+  user-select: none;
+}
+
+#keyboard {
+  gap: 8px; /* Between each row */
+  padding-bottom: 10px;
+}
+
+#keyboard ul { justify-content: center; }
+
+[data-key] {
+  background: var(--color-gray-light);
+  border: 2px solid rgb(79, 79, 79);
+  border-radius: 4px;
+
+  font-size: 1rem;
+
+  height: 3.8rem;
+  width: 2.8rem;
+
+  cursor: pointer;
+
+  transition: all .3s ease-in-out;
+}
+
+[data-key]:hover {
+  background: rgb(205, 205, 205);
+  border: 2px solid rgb(136, 136, 136);
+  transition: 1s;
+}
+
+[data-key='Enter'] { width: 6rem; }
+
+[data-key='Backspace'] {
+  background-image: url(./backspace.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  width: 4rem;
+}
+
+[data-status='filled']      { border: 2px solid var(--color-gray-light); color: var(--color-gray-light); border-radius: 5px;}
+[data-status='valid']       { background: var(--color-green);  border-radius: 2px;}
+[data-status='invalid']     { background: var(--color-yellow); border: 2px solid grey;  border-radius: 2px;}
+[data-status='none']        { background: var(--color-gray-dark);  border-radius: 2px;}
+
+[data-animation='pop']      { animation: PopIn 100ms; }
+
+@keyframes PopIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+[data-animation='flip']     { animation: Flip .50s ease-in; }
+
+@keyframes Flip {
+  from {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(-90deg);
+  }
+  to {
+    transform: rotateX(0);
+  }
+}
+
+[data-animation='invalid']  { animation: Shake 600ms; }
+
+@keyframes Shake {
+  10%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 80% {
+    transform: translateX(2px);
+  }
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+header a{
+  color: #494949;
+  transition: color 1s; 
+}
+
+header a:hover{
+  color: #7d7d7d;
+}
+
+header a::not(:hover){
+  color: #494949;
+}
+
+  </style>
+<body>
+  <header>
+    <h2 style="font-size: 50px; text-align: center;">Wordle by <a href="/">Veracept</a></h2>
+  </header>
+  <main>
+    <section id="board">
+    </section>
+  </main>
+  <div class="toaster">
+    <ul></ul>
+  </div>
+    <section id="keyboard">
+    </section>
+
+
+    <footer class="footer">
+      <div class="footer_upper">
+          <div class="footer_upper_div">
+              <h3>Games Projects</h3>
+              <a href="../games/tower.html">Build a Tower</a>
+              <a href="../games/cubes.html">Cut the Сube</a>
+              <a href="../games/bridge.html">Build a bridge</a>
+              <a href="../games/bridge.html">Generate Image</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Wordle</h3>
+              <a href="en.html">English</a>
+              <a href="ru.html">Russian</a>
+              <a href="ua.html">Ukranian</a>
+              <a href="pl.html">Polish</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Other Links</h3>
+              <a href="https://discord.com/invite/DeeuC7QFBA">Discord-Server</a>
+              <a href="">Code of this page on GitHub</a>
+              <a href="https://imgur.com/a/Oyq8elO">Disign portfolio on imgur</a>
+              <a href="https://veracept.bio.link/">My Bio-Link</a>
+          </div>
+          <div class="footer_upper_div">
+              <h3>Get In Touch</h3>
+              <a class="flex align-centre gap5" href="mailto:jonikrmz@gmail.com">
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>jonikrmz@gmail.com</a>
+  
+              <div class="footer_upper_div_4_social">
+                  <a href="https://www.instagram.com/veracept/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                  <a href="https://github.com/Veracept"><i class="fa fa-github" aria-hidden="true"></i></a>
+                  <a href="https://t.me/veracept"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                  <a href="https://www.facebook.com/veracept"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                  <a href="https://vk.com/veracept"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                  <a href="https://www.youtube.com/channel/UCWKA2dYM_YGbRXqLjA7y_Xw"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+              </div>
+          </div>
+      </div>
+      <hr>
+      <div class="footer_lower">
+          <div class="footer_lower_text">
+              <p>&copy;<a href="#" style="text-align: center;">Veracept</a> | All Rights Reserved.</p>
+          </div>
+      </div>
+  </footer>
+ <!--Footer Section End-->
+    <!--Java Scripts-->
+    <!--Icons Scripts-->
+    <script src="https://kit.fontawesome.com/cdca6417c3.js" crossorigin="anonymous"></script>
+    <!--Particle Scripts-->
+    <script src="assets/JS/particles.js"></script>
+    <script src="assets/JS/app.js"></script>
+    <!--SMTP Scripts-->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!--Popup Message Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--Scroll Reveal Scripts-->
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <!--Typing Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!--Tilt Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <!--Main Java Scripts-->
+    <script src="assets/JS/script.js"></script>
+    <!--Java Scripts End-->
+  <script>
+
+'use strict';
+
+const BACKSPACE_KEY = 'Backspace';
+const ENTER_KEY = 'Enter';
+const WORD_LIST = [
+  "АББАТ",
+  "АБВЕР",
+  "АБЗАЦ",
+  "АБОРТ",
+  "АБРЕК",
+  "АБРИС",
+  "АБХАЗ",
+  "АВАНС",
+  "АВЕНЮ",
+  "АВРАЛ",
+  "АВТОР",
+  "ЯРЛЫК",
+  "ЯСЕНЬ",
+  "ЯСТВО",
+];
+let WORD_OF_THE_DAY = ''; // Переменная для хранения слова дня
+
+const MAX_NUMBER_OF_ATTEMPTS = 6;
+
+const history = [];
+let currentWord = '';
+
+const init = () => {
+  console.log('👋 Добро пожаловать в Wordle');
+  // Проверяем, обновлять ли слово дня
+  if (shouldUpdateWordOfTheDay()) {
+    updateWordOfTheDay(); // Обновляем WORD_OF_THE_DAY
+  } else {
+    WORD_OF_THE_DAY = localStorage.getItem('WORD_OF_THE_DAY');
+  }
+  console.log('Correct word is - " ' + WORD_OF_THE_DAY + ' "');
+
+  const KEYBOARD_KEYS = ['ЙЦУКЕНГШЩЗХЪ', 'ФЫВАПРОЛДЖЭ', 'ЯЧСМИТЬБЮ'];
+
+  const gameBoard = document.querySelector('#board');
+  const keyboard = document.querySelector('#keyboard');
+
+  generateBoard(gameBoard);
+  generateBoard(keyboard, 3, 10, KEYBOARD_KEYS, true);
+
+  document.addEventListener('keydown', event => onKeyDown(event.key));
+  gameBoard.addEventListener('animationend', event => event.target.setAttribute('data-animation', 'idle'));
+  keyboard.addEventListener('click', onKeyboardButtonClick);
+}
+
+// Функция для обновления WORD_OF_THE_DAY
+const updateWordOfTheDay = () => {
+  WORD_OF_THE_DAY = getNewWordOfTheDay();
+  // Обновляем информацию о последнем обновлении
+  localStorage.setItem('lastUpdate', new Date().getTime());
+  localStorage.setItem('WORD_OF_THE_DAY', WORD_OF_THE_DAY);
+}
+
+// Функция для выбора нового слова каждый день
+const getNewWordOfTheDay = () => {
+  const randomIndex = Math.floor(Math.random() * WORD_LIST.length);
+  return WORD_LIST[randomIndex];
+}
+
+// Функция для проверки, нужно ли обновить слово дня
+const shouldUpdateWordOfTheDay = () => {
+  const lastUpdate = localStorage.getItem('lastUpdate');
+  if (!lastUpdate) return true; // Если информация о последнем обновлении отсутствует, обновляем
+  const twentyFourHoursInMilliseconds = 24 * 60 * 60 * 1000;
+  const currentTime = new Date().getTime();
+  const timeDifference = currentTime - lastUpdate;
+  return timeDifference >= twentyFourHoursInMilliseconds;
+}
+
+const showMessage = (message) => {
+  const toast = document.createElement('li');
+
+  toast.textContent = message;
+  toast.className = 'toast';
+
+  document.querySelector('.toaster ul').prepend(toast);
+  
+  setTimeout(() => toast.classList.add('fade'), 1000);
+
+  toast.addEventListener('transitionend', (event) => event.target.remove());
+}
+
+const checkGuess = (guess, word) => {
+  const guessLetters = guess.split('');
+  const wordLetters = word.split('');
+  const remainingWordLetters = [];
+  const remainingGuessLetters = [];
+
+  const currentRow = document.querySelector(`#board ul[data-row='${history.length}']`);
+
+  currentRow.querySelectorAll('li').forEach((element, index) => {
+    element.setAttribute('data-status', 'none');
+    element.setAttribute('data-animation', 'flip');
+
+    element.style.animationDelay = `${index * 300}мс`;
+    element.style.transitionDelay = `${index * 400}мс`;
+  });
+
+  wordLetters.forEach((letter, index) => {
+    if (guessLetters[index] === letter) {
+      currentRow.querySelector(`li:nth-child(${index + 1})`)
+        .setAttribute('data-status', 'valid');
+
+      document
+        .querySelector(`[data-key='${letter}']`)
+        .setAttribute('data-status', 'valid');
+      
+        remainingWordLetters.push(false);
+        remainingGuessLetters.push(false);
+    } else {
+      remainingWordLetters.push(letter);
+      remainingGuessLetters.push(guessLetters[index]);
+    }
+  });
+
+  remainingWordLetters.forEach(letter => {
+    if (letter === false) return;
+
+    if (remainingGuessLetters.indexOf(letter) !== -1) {
+      const column = currentRow
+        .querySelector(`li:nth-child(${remainingGuessLetters.indexOf(letter) + 1})`);
+
+      column.setAttribute('data-status', 'invalid');
+      
+      const keyboardKey = document.querySelector(`[data-key='${letter}']`);
+
+      if (keyboardKey.getAttribute('data-status') !== 'valid') {
+        keyboardKey.setAttribute('data-status', 'invalid');
+      }
+    }
+  });
+
+  guessLetters.forEach(letter => {
+    const keyboardKey = document.querySelector(`[data-key='${letter}']`);
+    
+    if (keyboardKey.getAttribute('data-status') === 'empty') {
+      keyboardKey.setAttribute('data-status', 'none');
+    }
+  });
+
+  history.push(currentWord);
+  currentWord = '';
+}
+
+const onKeyboardButtonClick = (event) => {
+  if (event.target.nodeName === 'LI') {
+    onKeyDown(event.target.getAttribute('data-key'));
+  }
+}
+
+const onKeyDown = (key) => {
+  if (history.length >= MAX_NUMBER_OF_ATTEMPTS) return;
+
+  const currentRow = document.querySelector(`#board ul[data-row='${history.length}']`);
+
+  let targetColumn = currentRow.querySelector('[data-status="empty"]');
+
+  if (key === BACKSPACE_KEY) {
+    if (targetColumn === null) {
+      targetColumn = currentRow.querySelector('li:last-child');
+    } else {
+      targetColumn = targetColumn.previousElementSibling ?? targetColumn;
+    }
+
+    targetColumn.textContent = '';
+    targetColumn.setAttribute('data-status', 'empty');
+    
+    currentWord = currentWord.slice(0, -1);
+    
+    return;
+  }
+
+  if (key === ENTER_KEY) {
+    if (currentWord.length < 5) {
+      showMessage('Вы пропустили несколько букв, не так ли?');
+      return;
+    }
+
+    if (currentWord.length === 5 && WORD_LIST.includes(currentWord)) {
+      checkGuess(currentWord, WORD_OF_THE_DAY);
+    } else {
+      currentRow.setAttribute('data-animation', 'invalid');
+      showMessage('Это даже не настоящее слово, верно?');
+    }
+
+    return;
+  }
+
+  if (currentWord.length >= 5) return;
+
+  const upperCaseLetter = key.toUpperCase();
+
+  if (/^[А-Я]$/.test(upperCaseLetter)) {
+    currentWord += upperCaseLetter;
+
+    targetColumn.textContent = upperCaseLetter;
+    targetColumn.setAttribute('data-status', 'filled');
+    targetColumn.setAttribute('data-animation', 'pop');
+  }
+}
+
+const generateBoard = (board, rows = 6, columns = 5, keys = [], keyboard = false) => {
+  for (let row = 0; row < rows; row++) {
+    const elmRow = document.createElement('ul');
+
+    elmRow.setAttribute('data-row', row);
+
+    for (let column = 0; column < columns; column++) {
+      const elmColumn = document.createElement('li');
+      elmColumn.setAttribute('data-status', 'empty');
+      elmColumn.setAttribute('data-animation', 'idle');
+
+      if (keyboard && keys.length > 0) {
+        const key = keys[row].charAt(column);
+        elmColumn.textContent = key;
+        elmColumn.setAttribute('data-key', key);
+      }
+
+      if (keyboard && elmColumn.textContent === '') continue;
+
+      elmRow.appendChild(elmColumn);
+    }
+
+    board.appendChild(elmRow);
+  }
+
+  if (keyboard) {
+    const enterKey = document.createElement('li');
+    enterKey.setAttribute('data-key', ENTER_KEY);
+    enterKey.textContent = ENTER_KEY;
+    board.lastChild.prepend(enterKey);
+
+    const backspaceKey = document.createElement('li');
+    backspaceKey.setAttribute('data-key', BACKSPACE_KEY);
+    backspaceKey.textContent = BACKSPACE_KEY;
+    board.lastChild.append(backspaceKey);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+function getRandomIndex(maxLength) {
+  return Math.floor(Math.random() * Math.floor(maxLength));
+}
+
+  </script>
+</body>
+</html>
